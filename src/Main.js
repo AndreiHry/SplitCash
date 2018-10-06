@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import lottery from './img/lottery.png'
 import {
 	Container, Row, Col, Collapse,
 	Navbar,
