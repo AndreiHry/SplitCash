@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import lottery from './img/lottery.png'
 import {
-	Container, Row, Col, Collapse,
+	Row, Col,
 	Navbar,
-	NavbarToggler,
-	NavbarBrand,
 	Nav,
 	NavItem,
 	NavLink,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-	Button,
-	DropdownItem
-  } from 'reactstrap';
+	Button
+} from 'reactstrap';
 
 export default class Main extends Component {
 	render() {
@@ -50,7 +44,7 @@ export default class Main extends Component {
 							<p>Wan't to try old school?
 Play our lottery, up to 10x</p>
 						</div>
-						<Button className="play-btn">PLAY NOW</Button>
+						<Button className="play-btn" href="/lottery">PLAY NOW</Button>
 					</Col>
 					<Col>
 						<div className="unavaliable">
