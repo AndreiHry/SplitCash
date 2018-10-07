@@ -1,7 +1,6 @@
 .lottery-game-container {
 	height: 50%;
-    background: black;
-	opacity: 0.3;
+    background: rgba(0, 0, 0, 0.5);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -31,4 +30,7 @@
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
+}
+.choice-row .active {
+	color: red;
 }

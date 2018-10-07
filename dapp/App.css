@@ -1,7 +1,7 @@
 .App {
 	height: 100%;
 	background-color: black;
-	background: url('./img/back_black.jpg');
+	background: url(./img/back_black.jpg);
 	background-size: cover;
 }
 
