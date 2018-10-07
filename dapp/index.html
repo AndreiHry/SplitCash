@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta http-equiv="cleartype" content="on" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="format-detection" content="address=no" />
+
+  <!--
+    %META_INFORMATION% - replacing to links to favicons manifest.json and other
+  -->
+  %META_INFORMATION%
+
+
+  <!-- <link rel="subresource" href="./static/lib/DC.js">
+  <link rel="subresource" href="./dapp.logic.js"> -->
+
+  <!-- Scripts preloader / progressbar -->
+  <!-- <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() { 
+      loadScript("./static/lib/DC.js", function (p) {
+        LoadingBar.progress(p * 0.9)
+      }, function () {
+        loadScript("./dapp.logic.js")        
+        LoadingBar.progress(100)
+      })
+    })
+  </script> -->
+</head>
+
+<body>
+
+  <div id="root">
+  </div>
+  <!-- <div id="progressbar_wrap">
+    <div class="bg"></div>
+    <div class="bg2"></div>
+    <div id="progressbar">
+      <div class="bar">
+        <div class="line"></div>
+      </div>
+      <div class="percentage"><span>1</span> %</div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    function loadScript(src, progressCallback, loadedCallback){      
+      var req = new XMLHttpRequest();
+      req.addEventListener("progress", function(event) {
+          if (event.lengthComputable) {
+            if(progressCallback) progressCallback(event.loaded / event.total * 100)
+          }
+      }, false);
+
+      req.addEventListener("load", function(event) {
+          var s = document.createElement("script");
+          s.innerHTML = event.target.responseText;
+          document.documentElement.appendChild(s)
+          if (loadedCallback) loadedCallback()
+      }, false);
+
+      req.open("GET", src);
+      req.send()
+    }
+
+    document.addEventListener('DOMContentLoaded', function(){     
+      window.LoadingBar = (function(){
+        var cur_p   = 1
+        var wrap    = document.querySelector('#progressbar_wrap')
+        var line_el = document.querySelector('#progressbar .bar .line')
+        var text_el = document.querySelector('#progressbar .percentage span')
+
+        function throttle(func, ms) {
+          var isThrottled = false,savedArgs,savedThis;
+
+          function wrapper() {
+            if (isThrottled) { // (2)
+              savedArgs = arguments;
+              savedThis = this;
+              return;
+            }
+            func.apply(this, arguments); // (1)
+            isThrottled = true;
+            setTimeout(function() {
+              isThrottled = false; // (3)
+              if (savedArgs) {
+                wrapper.apply(savedThis, savedArgs);
+                savedArgs = savedThis = null;
+              }
+            }, ms);
+          }
+          return wrapper;
+        }
+
+        var tick_t = false
+        var p_t = false
+        var Progress = function(p){
+          // p = ((+(p.toFixed(2))) + 0.01).toFixed(2) * 1
+          p = Math.ceil(p)
+          var prev_p = 1*cur_p
+          if (cur_p < p) cur_p = p
+          if (cur_p > 100) cur_p = 100.00 
+
+          // line_el.style.width = cur_p+'%'
+          
+          clearTimeout(p_t)
+          clearTimeout(tick_t)
+          function cnt(i, to){
+            i++
+            
+            if (i==to & to > 99) {
+              wrap.classList.add('hide')
+              line_el.style.width = i+'%'
+              setTimeout(function(){
+                wrap.parentNode.removeChild(wrap)
+              }, 1000)
+              return
+            }
+            
+            if (i<=to) {
+              p_t = setTimeout(function(){
+                line_el.style.width = i+'%'
+                text_el.innerText = i
+                cnt(i, to)
+              }, 10)
+            }
+
+          }
+          cnt(prev_p, cur_p)
+        }
+
+        return {
+          progress: throttle(Progress, 555),
+
+          getCurProgress:function(){
+            return cur_p*1 
+          },
+        }
+      })()
+    })
+  </script>
+
+
+  <style type="text/css">
+    body {
+      background-color: #010101;
+      margin: 0;
+      font-size: 10pt;
+      font-family: tahoma, monospace;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      background: transparent;
+    }
+
+    @keyframes movebg {
+        0% { filter:blur(1px); }
+        50% { filter:blur(0px); transform: translate3d(0,5px,0) scale(1.01); }
+        100% {filter:blur(1px); }
+    }
+
+    #progressbar_wrap {
+      background:#000;
+      position: fixed; top:0; left: 0;
+      width:100%; height: 100%;
+      transition: opacity 1s linear;
+    }
+    #progressbar_wrap .bg {
+      will-change:transform;
+      transition: filter 1s linear;
+      filter:blur(10px); opacity: 0.5;
+      width:100%; height: 100%; 
+      background: url('./static/img/mockbg.jpg') no-repeat;
+      background-size: cover;
+      animation: movebg 3s infinite linear;
+      transition: transform 1s linear;
+    }
+    
+
+    #progressbar_wrap.hide {
+      opacity: 0; 
+    }
+
+    #progressbar_wrap.hide .bg {
+      filter: blur(1px);
+      transition: transform 1s linear;
+      transform: translate3d(0,0,0) scale(1.1)
+    }
+
+    #progressbar {
+      position: fixed;
+      top: 45%;
+      width: 300px;
+      left: 50%;
+      margin-left: -150px;
+      height: 55px;
+      opacity: 0.9;
+    }
+
+    #progressbar .bar {
+      position: absolute;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      width: 100%;
+      height: 16px;
+    }
+
+    #progressbar .bar .line {
+      max-width: calc(100% - 4px);
+      width: 0%;
+      position: absolute;
+      height: 12px;
+      background: #fff;
+      margin: 2px;
+      border-radius: 6px;
+      transition: width 1s linear;
+      will-change:width;
+    }
+
+    #progressbar .percentage {
+      position: absolute;
+      bottom: 0px;
+      color: #fff;
+      letter-spacing: 2px;
+      font-size: 18px;
+      text-align: center;
+      width: 100%;
+      font-family: sans-serif;
+      text-indent: 20px;
+    }
+  </style> -->
+</body>
+
+</html>
