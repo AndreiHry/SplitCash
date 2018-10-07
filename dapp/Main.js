@@ -28,10 +28,10 @@ export default class Main extends Component {
 				</Row>
 				<Row className="info-container">
 					<Col>
-						<h2>Fair games that pay Ether</h2>
+						<h2>Play random games Fair!</h2>
 						<div>
-							<p>Provably fair bets backed by simple open-sourced contract</p>
-							<p>No sign-ups or deposits, just 1% edge and jackpot!</p>
+							<p>Provably fair bets backed by open-sourced contract</p>
+							<p>No sign-ups, random and jackpot. Try it now!</p>
 						</div>
 						<Button size="lg" className="faq-btn">HOW TO PLAY?</Button>
 					</Col>
@@ -53,7 +53,7 @@ Play our lottery, up to 10x</p>
 							<p>Wan't to try old school?
 Play our lottery, up to 10x</p>
 						</div>
-						<Button disabled className="play-btn">PLAY NOW</Button>
+						<Button disabled className="play-btn">PLAY GAME</Button>
 					</Col>
 					<Col>
 						<div className="unavaliable">
