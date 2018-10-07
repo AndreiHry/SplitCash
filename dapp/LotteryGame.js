@@ -1,11 +1,43 @@
 import React, { Component } from 'react'
+import {Button} from 'reactstrap';
 import './lottery-game.css';
 export default class LotteryGame extends Component {
+	constructor(){
+		super();
+		this.state = {
+			bet : 1,
+			choice: null,
+			balance: null
+		}
+	}
 
 	handleClick(e) {
 		const userChoice = parseInt(e.target.id.substr(-1));
 		document.querySelector('.choice-row .active') ? document.querySelector('.choice-row .active').classList.remove('active') : console.log('#user choice',userChoice);
 		document.querySelector(`#choice_${userChoice}`).classList.toggle('active');
+		this.setState({...this.state, choice:userChoice});
+	}
+
+	makeRoll = (userBet, ...args) => {
+		console.log(...{ name: 1, hui: 2 })
+		const random_hash = DCLib.randomHash({
+		  bet: userBet,
+		  gamedata: [...args]
+		})
+		console.log(random_hash)
+		 window.Lottery.Game(userBet, userData, random_hash).then(function (result) {
+		   console.log('result', result)
+		   this.renderGames()
+		   const balance = window.Lottery.Game.payChannel.getBalance();
+		   this.setState({...this.state, balance});
+		  $('#user_bet').max = ubets
+		 })
+	  }
+
+	handleBetChange(e) {
+		const value = e.target.value;
+		console.log(value);
+		this.setState({bet:value});
 	}
 
 	render() {
@@ -28,7 +60,9 @@ export default class LotteryGame extends Component {
 				</div>
 			</div>
 			<div className="user-bet-container">
-				<input type="range" />
+				<label className="bet">{this.state.bet}</label>
+				<input type="range" min="1" step="1" max="10" onChange={(e) => this.handleBetChange(e)} />
+				<Button color="danger" className="bet-btn">BET!</Button>
 			</div>
 			</React.Fragment>
 		)

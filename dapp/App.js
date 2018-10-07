@@ -41,7 +41,7 @@ constructor () {
       {
         bankroller: 'auto',
         paychannel: { deposit: deposit },
-        gamedata: { type: 'uint', value: [1, 2, 3] }
+        gamedata: { type: 'uint', value: [0, 0] }
       },
       function (connected, info) {
         console.log('connect result:', connected)
@@ -49,28 +49,11 @@ constructor () {
         if (!connected) return
 
         let maxbet = DCLib.Utils.dec2bet(info.channel.player_deposit)
-
-        // $('#user_bet')[0].max = Math.ceil(maxbet)
-        // $('#user_bet').val((maxbet * 0.1).toFixed(2))
-
-        // $('body').addClass('cur-step-2').addClass('cur-step-3')
       }
     )
   }
-  makeRoll = (user_bet, ...args) => {
-    console.log(...{ name: 1, hui: 2 })
-    const random_hash = DCLib.randomHash({
-      bet: user_bet,
-      gamedata: [...args]
-    })
-    console.log(random_hash)
-    // window.Dice.Game(user_bet, user_num, random_hash).then(function (result) {
-    //   console.log('result', result)
-    //   this.renderGames()
-    //   var ubets = window.Dice.Game.payChannel.getBalance()
-    //   // $('#user_bet').max = ubets
-    // })
-  }
+
+  
   endGame = () => {
     window.Lottery.disconnect(function (res) {
       console.log('disconnect result', res)
