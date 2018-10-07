@@ -18,19 +18,20 @@ export default class LotteryGame extends Component {
 		this.setState({...this.state, choice:userChoice});
 	}
 
-	makeRoll = (userBet, ...args) => {
+	makeRoll = (...args) => {
+		console.log(this.state);
 		console.log(...{ name: 1, hui: 2 })
 		const random_hash = DCLib.randomHash({
-		  bet: userBet,
+		  bet: this.state.bet,
 		  gamedata: [...args]
 		})
 		console.log(random_hash)
-		 window.Lottery.Game(userBet, userData, random_hash).then(function (result) {
+		 window.Lottery.Game(this.state.bet, this.state.choice, random_hash).then(function (result) {
 		   console.log('result', result)
 		   this.renderGames()
 		   const balance = window.Lottery.Game.payChannel.getBalance();
 		   this.setState({...this.state, balance});
-		  $('#user_bet').max = ubets
+		   console.log(this.state);
 		 })
 	  }
 
@@ -62,7 +63,7 @@ export default class LotteryGame extends Component {
 			<div className="user-bet-container">
 				<label className="bet">{this.state.bet}</label>
 				<input type="range" min="1" step="1" max="10" onChange={(e) => this.handleBetChange(e)} />
-				<Button color="danger" className="bet-btn">BET!</Button>
+				<Button color="danger" className="bet-btn" onClick={e => this.makeRoll(e)}>BET!</Button>
 			</div>
 			</React.Fragment>
 		)
