@@ -13,46 +13,13 @@ class App extends Component {
 constructor () {
     super()
     this.state = {
-      game: {
-        status: '',
-        result: '',
-        methodes: {},
-        clickedPlace: {
-          x: '',
-          y: '',
-          clicked: false,
-          isOpen: false
-        }
-      },
-      participants: {
-        player: {
-          account: '',
-          bet: '',
-          eth: ''
-        },
-        bankroller: {
-          isFound: false,
-          address: '',
-          account: ''
-        }
-      },
-      inputValue: {
-        numValue: 0,
-        betValue: 0,
-        depositeValue: 0
-      }
     }
   }
 
   componentDidMount () {
-    const that = this
-    const { participants } = this.state
-
     DCLib.on('ready', function () {
       dappLogicInit(DCLib, 'split_cash-lottery')
       DCLib.Account.initAccount(function () {
-        participants.player.account = DCLib.Account
-
         window.Lottery = new DCLib.DApp({
           slug: 'split_cash-lottery',
           contract: {
@@ -68,31 +35,7 @@ constructor () {
       })
     })
   }
-  initControllInterface = eventHandlers => {
-    const that = this
-    const { participants } = this.state
-    let deposit_set = false
-    const updateBalanceState = function () {
-      DCLib.Account.info(function (info) {
-        participants.player.bet = info.balance.bet
-        participants.player.eth = info.balance.eth
 
-        setTimeout(updateBalanceState, 30000)
-
-        if (info.balance.bet > 0) {
-          if (!deposit_set) {
-            deposit_set = true
-            var d = (info.balance.bet * 0.5).toFixed(2)
-            if (d > 1) {
-              d = 1
-            }
-          }
-        }
-        that.setState({ participants: participants })
-      })
-    }
-    updateBalanceState()
-  }
   startGame (deposit) {
     window.Lottery.connect(
       {

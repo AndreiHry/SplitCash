@@ -10,6 +10,7 @@ export default class LotteryGame extends Component {
 
 	render() {
 		return (
+			<React.Fragment>
 			<div className="lottery-game-container">
 				<h3>Lottery</h3>
 				<div className="ticket">
@@ -26,6 +27,10 @@ export default class LotteryGame extends Component {
 					</div>
 				</div>
 			</div>
+			<div className="user-bet-container">
+				<input type="range" />
+			</div>
+			</React.Fragment>
 		)
 	}
 }
