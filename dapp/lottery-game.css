@@ -1,0 +1,34 @@
+.lottery-game-container {
+	height: 50%;
+    background: black;
+	opacity: 0.3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.lottery-game-container h3 {
+	color: white;
+	text-align: center;
+}
+.lottery-game-container h5 {
+	text-align: center;
+	color: white;
+}
+.ticket {
+	display: flex;
+	flex-direction: column;
+}
+.ticket span {
+	color: white;
+	cursor: pointer;
+}
+.ticket span:hover {
+	color: #F6E444;
+}
+.choice-row{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
